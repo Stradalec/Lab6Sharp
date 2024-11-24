@@ -86,5 +86,11 @@ namespace Lab1
             Warning warning = new Warning();
             warning.Show();
         }
+
+        private void integralButton_Click(object sender, EventArgs e)
+        {
+            IntegralForm integral = new IntegralForm();
+            integral.Show();
+        }
     }
 }

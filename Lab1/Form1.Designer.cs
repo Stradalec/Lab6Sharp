@@ -48,6 +48,7 @@
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             button1 = new System.Windows.Forms.Button();
+            integralButton = new System.Windows.Forms.Button();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
@@ -93,6 +94,7 @@
             tableLayoutPanel1.Controls.Add(GoldenRatioButton, 2, 1);
             tableLayoutPanel1.Controls.Add(NewtonButton, 2, 2);
             tableLayoutPanel1.Controls.Add(pictureBox1, 0, 0);
+            tableLayoutPanel1.Controls.Add(integralButton, 2, 5);
             tableLayoutPanel1.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
             tableLayoutPanel1.Location = new System.Drawing.Point(11, 72);
             tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(2);
@@ -292,6 +294,19 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // integralButton
+            // 
+            integralButton.AutoSize = true;
+            integralButton.Location = new System.Drawing.Point(817, 315);
+            integralButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            integralButton.Name = "integralButton";
+            integralButton.Size = new System.Drawing.Size(193, 54);
+            integralButton.TabIndex = 15;
+            integralButton.Text = "Интеграл";
+            integralButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            integralButton.UseVisualStyleBackColor = true;
+            integralButton.Click += integralButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -339,6 +354,7 @@
         private System.Windows.Forms.PictureBox pictureBox4;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Button integralButton;
     }
 }
 

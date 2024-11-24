@@ -57,7 +57,7 @@ namespace Lab1
         int ArraySizeToRandom();
 
         int leftInterval();
-        int rightInterval();    
+        int rightInterval();
         string PathToFile();
 
         bool IsDouble();
@@ -80,13 +80,25 @@ namespace Lab1
         event EventHandler<EventArgs> Sort;
     }
 
+    interface IIntegralView
+    {
 
+        double Interval();
+        string returnFunction();
+        double lowLimit();
+        double upLimit();
+
+        void ShowGraph(PlotModel plotModel);
+
+
+        event EventHandler<EventArgs> CreateIntegralGraph;
+    }
 
     // Модель. Основная часть работы программы происходит здесь
     class Model
     {
         private int fastIterations;
-      
+
         public PlotModel CreateGraph(double interval, double downLimitation, double upLimitation, string function)
         {
             double limit = Convert.ToDouble(interval);
@@ -95,7 +107,6 @@ namespace Lab1
             List<DataPoint> dot = new List<DataPoint>();
 
             var plotModel = new PlotModel { Title = "График функции f(x)" };
-
 
             var dataPoints = new List<double> { 0 };
 
@@ -127,14 +138,17 @@ namespace Lab1
             var context = new ExpressionContext();
             context.Imports.AddType(typeof(Math));
 
+
             int lowIndex = Convert.ToInt32(functionLimit);
             int upIndex = Convert.ToInt32(upFunctionLimit);
             for (double counterI = -lowIndex; counterI <= upIndex; ++counterI)
             {
                 context.Variables["x"] = counterI;
                 var expression = context.CompileGeneric<double>(function);
+
                 double y = expression.Evaluate();
                 lineSeries.Points.Add(new DataPoint(counterI, y));
+
 
             }
 
@@ -559,14 +573,14 @@ namespace Lab1
                         {
                             numbers[randomIndex] = random.Next(-leftLimit, rightLimit);
                         }
-                        
+
                     }
                     return numbers;
 
                 case 3:
                     if (pathToFile != "temporary")
                     {
-                        if (pathToFile.Contains("xlsx"))  
+                        if (pathToFile.Contains("xlsx"))
                         {
                             using (FileStream file = new FileStream(pathToFile, FileMode.Open, FileAccess.Read))
                             {
@@ -589,16 +603,16 @@ namespace Lab1
                                 }
                             }
                         }
-                        else if (pathToFile.Contains("txt")) 
+                        else if (pathToFile.Contains("txt"))
                         {
                             string[] lines = File.ReadAllLines(pathToFile);
                             numbers = new double[lines.Length];
-                            for (int inputIndex = 0;  inputIndex < lines.Length; ++inputIndex)
+                            for (int inputIndex = 0; inputIndex < lines.Length; ++inputIndex)
                             {
                                 numbers[inputIndex] = Convert.ToDouble(lines[inputIndex]);
                             }
                         }
-                        
+
                     }
                     return numbers;
 
@@ -771,7 +785,7 @@ namespace Lab1
             return (namesOfInserts, iterationsOfInserts, timeOfInserts, arrayToSort);
         }
 
-        
+
         private (int, double, double[]) FastSort(double[] arrayToSort, bool isIncreasingSort)
         {
             Stopwatch timer = new Stopwatch();
@@ -783,8 +797,8 @@ namespace Lab1
             timeOfFast = timer.Elapsed.TotalSeconds;
             return (fastIterations, timeOfFast, arrayToSort);
         }
-         
-        private void Sort(double[] array,  bool isIncreasingSort, int lowIndex, int upIndex)
+
+        private void Sort(double[] array, bool isIncreasingSort, int lowIndex, int upIndex)
         {
             if (lowIndex < upIndex)
             {
@@ -795,7 +809,7 @@ namespace Lab1
             }
             ++fastIterations;
         }
-        private static int Partition(double[] array, bool isIncreasingSort, int left, int right )
+        private static int Partition(double[] array, bool isIncreasingSort, int left, int right)
         {
             double pivot = array[right];
             int index = left - 1;
@@ -809,7 +823,7 @@ namespace Lab1
                     double numberTwo = array[sortIndex];
 
                     array[index] = numberTwo;
-                    array[sortIndex] = numberOne;                  
+                    array[sortIndex] = numberOne;
                 }
             }
             double tempOne = array[index + 1];
@@ -982,6 +996,72 @@ namespace Lab1
             }
             return temp + 1;
         }
+
+        public PlotModel CreateIntegralGraph(double interval, double downLimitation, double upLimitation, string function)
+        {
+            double limit = Convert.ToDouble(interval);
+            double functionLimit = Convert.ToDouble(downLimitation);
+            double upFunctionLimit = Convert.ToDouble(upLimitation);
+            List<DataPoint> dot = new List<DataPoint>();
+
+            var plotModel = new PlotModel { Title = "График интеграла f(x)" };
+
+
+            var dataPoints = new List<double> { 0 };
+
+
+            var absicc = new LineSeries {
+                Title = "Абсцисс",
+                Color = OxyColor.FromRgb(255, 0, 0), // Красный цвет
+                StrokeThickness = 2
+            };
+
+            absicc.Points.Add(new DataPoint(-limit, 0));
+            absicc.Points.Add(new DataPoint(limit, 0));
+
+            var ordinate = new LineSeries {
+                Title = "Ординат",
+                Color = OxyColor.FromRgb(255, 0, 0), // Красный цвет
+                StrokeThickness = 2,
+            };
+
+            ordinate.Points.Add(new DataPoint(0, limit));
+            ordinate.Points.Add(new DataPoint(0, -limit));
+
+            // Создаем серию точек графика
+            var lineSeries = new AreaSeries {
+                Title = " Интеграл f(x)",
+                Color = OxyColor.FromRgb(0, 0, 255) // Синий цвет линии
+            };
+
+            var context = new ExpressionContext();
+            context.Imports.AddType(typeof(Math));
+
+
+            int lowIndex = Convert.ToInt32(functionLimit);
+            int upIndex = Convert.ToInt32(upFunctionLimit);
+            for (double counterI = lowIndex; counterI <= upIndex; counterI += 0.1)
+            {
+                context.Variables["x"] = counterI;
+                var expression = context.CompileGeneric<double>(function);
+
+                double y = expression.Evaluate();
+                lineSeries.Points.Add(new DataPoint(counterI, y));
+
+
+            }
+
+            // Добавляем все точки в серию
+            lineSeries.Points.AddRange(dot);
+            lineSeries.Fill = OxyColors.LightBlue;
+
+            // Добавляем серию точек к модели графика
+            plotModel.Series.Add(lineSeries);
+            plotModel.Series.Add(ordinate);
+            plotModel.Series.Add(absicc);
+
+            return plotModel;
+        }
     }
 
 
@@ -990,6 +1070,7 @@ namespace Lab1
     {
         private IView mainView;
         private ISortView sortView;
+        private IIntegralView integralView;
         private Model model;
 
         public Presenter(IView inputView)
@@ -1013,6 +1094,19 @@ namespace Lab1
             sortView.Sort += new EventHandler<EventArgs>(Sort);
         }
 
+        public Presenter(IIntegralView inputView)
+        {
+            integralView = inputView;
+            model = new Model();
+
+            integralView.CreateIntegralGraph += new EventHandler<EventArgs>(IntegralGraph);
+        }
+
+        private void IntegralGraph(object sender, EventArgs inputEvent) 
+        {
+            var output = model.CreateIntegralGraph(integralView.Interval(), integralView.lowLimit(), integralView.upLimit(), integralView.returnFunction());
+            integralView.ShowGraph(output);
+        }
 
         private void AddData(object sender, EventArgs inputEvent)
         {

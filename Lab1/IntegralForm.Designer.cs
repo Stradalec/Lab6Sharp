@@ -31,12 +31,7 @@
             pvGraph = new OxyPlot.WindowsForms.PlotView();
             MethodDesignLabel = new System.Windows.Forms.Label();
             GraphDesignLabel = new System.Windows.Forms.Label();
-            textBox1 = new System.Windows.Forms.TextBox();
-            label7 = new System.Windows.Forms.Label();
-            label6 = new System.Windows.Forms.Label();
-            label5 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
-            functionLimitBox = new System.Windows.Forms.TextBox();
             interval = new System.Windows.Forms.TextBox();
             countOfIterations = new System.Windows.Forms.Label();
             functionLabel = new System.Windows.Forms.Label();
@@ -48,7 +43,12 @@
             dx = new System.Windows.Forms.Label();
             lowBorder = new System.Windows.Forms.TextBox();
             upBorder = new System.Windows.Forms.TextBox();
+            integralGroup = new System.Windows.Forms.GroupBox();
+            simpson = new System.Windows.Forms.CheckBox();
+            trapezoid = new System.Windows.Forms.CheckBox();
+            rectangle = new System.Windows.Forms.CheckBox();
             menuStrip1.SuspendLayout();
+            integralGroup.SuspendLayout();
             SuspendLayout();
             // 
             // pvGraph
@@ -68,7 +68,7 @@
             // 
             MethodDesignLabel.AutoSize = true;
             MethodDesignLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
-            MethodDesignLabel.Location = new System.Drawing.Point(27, 289);
+            MethodDesignLabel.Location = new System.Drawing.Point(28, 214);
             MethodDesignLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             MethodDesignLabel.Name = "MethodDesignLabel";
             MethodDesignLabel.Size = new System.Drawing.Size(213, 20);
@@ -86,67 +86,19 @@
             GraphDesignLabel.TabIndex = 100;
             GraphDesignLabel.Text = "Настройка построения графика";
             // 
-            // textBox1
-            // 
-            textBox1.Location = new System.Drawing.Point(35, 254);
-            textBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(80, 23);
-            textBox1.TabIndex = 96;
-            textBox1.Text = "5";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(31, 234);
-            label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(155, 15);
-            label7.TabIndex = 95;
-            label7.Text = "функции (полож. сторона)";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(31, 178);
-            label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(151, 15);
-            label6.TabIndex = 94;
-            label6.Text = "функции (отриц. сторона)";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(204, 178);
-            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(33, 15);
-            label5.TabIndex = 93;
-            label5.Text = "осей";
-            // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(93, 147);
+            label4.Location = new System.Drawing.Point(31, 148);
             label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(144, 15);
+            label4.Size = new System.Drawing.Size(173, 15);
             label4.TabIndex = 92;
-            label4.Text = "Число точек построения";
-            // 
-            // functionLimitBox
-            // 
-            functionLimitBox.Location = new System.Drawing.Point(35, 197);
-            functionLimitBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            functionLimitBox.Name = "functionLimitBox";
-            functionLimitBox.Size = new System.Drawing.Size(80, 23);
-            functionLimitBox.TabIndex = 91;
-            functionLimitBox.Text = "5";
+            label4.Text = "Число точек построения осей";
             // 
             // interval
             // 
-            interval.Location = new System.Drawing.Point(204, 200);
+            interval.Location = new System.Drawing.Point(31, 166);
             interval.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             interval.Name = "interval";
             interval.Size = new System.Drawing.Size(80, 23);
@@ -156,7 +108,7 @@
             // countOfIterations
             // 
             countOfIterations.AutoSize = true;
-            countOfIterations.Location = new System.Drawing.Point(28, 328);
+            countOfIterations.Location = new System.Drawing.Point(6, 103);
             countOfIterations.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             countOfIterations.Name = "countOfIterations";
             countOfIterations.Size = new System.Drawing.Size(91, 15);
@@ -175,7 +127,7 @@
             // 
             // FirstIntervalLimitation
             // 
-            FirstIntervalLimitation.Location = new System.Drawing.Point(31, 347);
+            FirstIntervalLimitation.Location = new System.Drawing.Point(9, 122);
             FirstIntervalLimitation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             FirstIntervalLimitation.Name = "FirstIntervalLimitation";
             FirstIntervalLimitation.Size = new System.Drawing.Size(80, 23);
@@ -241,33 +193,73 @@
             upBorder.Size = new System.Drawing.Size(48, 23);
             upBorder.TabIndex = 106;
             // 
+            // integralGroup
+            // 
+            integralGroup.Controls.Add(simpson);
+            integralGroup.Controls.Add(trapezoid);
+            integralGroup.Controls.Add(rectangle);
+            integralGroup.Controls.Add(countOfIterations);
+            integralGroup.Controls.Add(FirstIntervalLimitation);
+            integralGroup.Location = new System.Drawing.Point(34, 250);
+            integralGroup.Name = "integralGroup";
+            integralGroup.Size = new System.Drawing.Size(198, 165);
+            integralGroup.TabIndex = 107;
+            integralGroup.TabStop = false;
+            integralGroup.Text = "Расчёт интеграла:";
+            // 
+            // simpson
+            // 
+            simpson.AutoSize = true;
+            simpson.Location = new System.Drawing.Point(6, 72);
+            simpson.Name = "simpson";
+            simpson.Size = new System.Drawing.Size(83, 19);
+            simpson.TabIndex = 110;
+            simpson.Text = "Симпсона";
+            simpson.UseVisualStyleBackColor = true;
+            // 
+            // trapezoid
+            // 
+            trapezoid.AutoSize = true;
+            trapezoid.Location = new System.Drawing.Point(6, 47);
+            trapezoid.Name = "trapezoid";
+            trapezoid.Size = new System.Drawing.Size(94, 19);
+            trapezoid.TabIndex = 109;
+            trapezoid.Text = "Трапециями";
+            trapezoid.UseVisualStyleBackColor = true;
+            // 
+            // rectangle
+            // 
+            rectangle.AutoSize = true;
+            rectangle.Location = new System.Drawing.Point(6, 22);
+            rectangle.Name = "rectangle";
+            rectangle.Size = new System.Drawing.Size(137, 19);
+            rectangle.TabIndex = 108;
+            rectangle.Text = "Прямоугольниками";
+            rectangle.UseVisualStyleBackColor = true;
+            // 
             // IntegralForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(924, 519);
+            Controls.Add(integralGroup);
             Controls.Add(upBorder);
             Controls.Add(lowBorder);
             Controls.Add(dx);
             Controls.Add(pvGraph);
             Controls.Add(MethodDesignLabel);
             Controls.Add(GraphDesignLabel);
-            Controls.Add(textBox1);
-            Controls.Add(label7);
-            Controls.Add(label6);
-            Controls.Add(label5);
             Controls.Add(label4);
-            Controls.Add(functionLimitBox);
             Controls.Add(interval);
-            Controls.Add(countOfIterations);
             Controls.Add(functionLabel);
-            Controls.Add(FirstIntervalLimitation);
             Controls.Add(function);
             Controls.Add(menuStrip1);
             Name = "IntegralForm";
             Text = "IntegralForm";
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            integralGroup.ResumeLayout(false);
+            integralGroup.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -278,12 +270,7 @@
         private System.Windows.Forms.Label GraphDesignLabel;
         internal System.Windows.Forms.Label IterationLabel;
         private System.Windows.Forms.TextBox IterationBox;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox functionLimitBox;
         private System.Windows.Forms.TextBox interval;
         private System.Windows.Forms.Label label2;
         internal System.Windows.Forms.Label label1;
@@ -301,5 +288,9 @@
         private System.Windows.Forms.Label dx;
         private System.Windows.Forms.TextBox lowBorder;
         private System.Windows.Forms.TextBox upBorder;
+        private System.Windows.Forms.GroupBox integralGroup;
+        private System.Windows.Forms.CheckBox rectangle;
+        private System.Windows.Forms.CheckBox trapezoid;
+        private System.Windows.Forms.CheckBox simpson;
     }
 }

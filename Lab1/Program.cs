@@ -1047,8 +1047,6 @@ namespace Lab1
 
                 double y = expression.Evaluate();
                 lineSeries.Points.Add(new DataPoint(counterI, y));
-
-
             }
 
             // Добавляем все точки в серию

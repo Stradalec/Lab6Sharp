@@ -23,6 +23,8 @@ using NPOI.HPSF;
 using System.Windows.Navigation;
 using System.Windows.Media.Media3D;
 using ICSharpCode.SharpZipLib.Core;
+using System.Diagnostics.Metrics;
+using Org.BouncyCastle.Asn1.Cmp;
 
 namespace Lab1
 {
@@ -88,10 +90,22 @@ namespace Lab1
         double lowLimit();
         double upLimit();
 
+        int IntegralIntervalCount();
+
+        bool IsRectangleActive();
+
+        bool IsTrapezoidActive();
+
+        bool IsSimpsonActive();
+
+
         void ShowGraph(PlotModel plotModel);
+
+        void ShowResult(double[] inputArray);
 
 
         event EventHandler<EventArgs> CreateIntegralGraph;
+        event EventHandler<EventArgs> Calculate;
     }
 
     // Модель. Основная часть работы программы происходит здесь
@@ -1060,6 +1074,30 @@ namespace Lab1
 
             return plotModel;
         }
+
+        public double[] CalculateIntegral(string function, double lowBorder, double upBorder, int iterationsCount, bool isRectangleActive, bool isTrapezoidActive, bool isSimpsonActive) 
+        {
+            double[] resultArray = new double[2];
+            resultArray[0] = RectangleMethod(function, lowBorder, upBorder, iterationsCount);
+            return resultArray;
+        }
+
+        private double RectangleMethod(string function, double lowBorder, double upBorder, int intervalCount) 
+        {
+            double result = 0;
+            double smallIntegralWidth = (upBorder  - lowBorder) / intervalCount;
+            var context = new ExpressionContext();
+            context.Imports.AddType(typeof(Math));
+            for (int rectangleIndex = 0; rectangleIndex < intervalCount; ++rectangleIndex) 
+            {                               
+                double tempX = lowBorder + rectangleIndex * smallIntegralWidth;
+                context.Variables["x"] = tempX;
+                var expression = context.CompileGeneric<double>(function);
+                double resolvedX = (double)expression.Evaluate();
+                result += resolvedX * smallIntegralWidth;
+            }
+            return result;
+        }
     }
 
 
@@ -1098,8 +1136,15 @@ namespace Lab1
             model = new Model();
 
             integralView.CreateIntegralGraph += new EventHandler<EventArgs>(IntegralGraph);
+            integralView.Calculate += new EventHandler<EventArgs>(CalculateIntegral);
         }
 
+
+        private void CalculateIntegral(object sender, EventArgs inputEvent) 
+        {
+            var output = model.CalculateIntegral(integralView.returnFunction(), integralView.lowLimit(), integralView.upLimit(), integralView.IntegralIntervalCount(), integralView.IsRectangleActive(), integralView.IsTrapezoidActive(), integralView.IsSimpsonActive());
+            integralView.ShowResult(output);
+        }
         private void IntegralGraph(object sender, EventArgs inputEvent) 
         {
             var output = model.CreateIntegralGraph(integralView.Interval(), integralView.lowLimit(), integralView.upLimit(), integralView.returnFunction());

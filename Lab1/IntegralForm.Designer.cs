@@ -35,7 +35,7 @@
             interval = new System.Windows.Forms.TextBox();
             countOfIterations = new System.Windows.Forms.Label();
             functionLabel = new System.Windows.Forms.Label();
-            FirstIntervalLimitation = new System.Windows.Forms.TextBox();
+            IntervalLimitation = new System.Windows.Forms.TextBox();
             function = new System.Windows.Forms.TextBox();
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
@@ -47,17 +47,23 @@
             simpson = new System.Windows.Forms.CheckBox();
             trapezoid = new System.Windows.Forms.CheckBox();
             rectangle = new System.Windows.Forms.CheckBox();
+            resultBox = new System.Windows.Forms.GroupBox();
+            simpsonResult = new System.Windows.Forms.TextBox();
+            trapezoidResult = new System.Windows.Forms.TextBox();
+            rectangleResult = new System.Windows.Forms.TextBox();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             menuStrip1.SuspendLayout();
             integralGroup.SuspendLayout();
+            resultBox.SuspendLayout();
             SuspendLayout();
             // 
             // pvGraph
             // 
-            pvGraph.Location = new System.Drawing.Point(361, 15);
+            pvGraph.Location = new System.Drawing.Point(333, 20);
             pvGraph.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pvGraph.Name = "pvGraph";
             pvGraph.PanCursor = System.Windows.Forms.Cursors.Hand;
-            pvGraph.Size = new System.Drawing.Size(555, 422);
+            pvGraph.Size = new System.Drawing.Size(555, 395);
             pvGraph.TabIndex = 103;
             pvGraph.Text = "plotView1";
             pvGraph.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
@@ -68,7 +74,7 @@
             // 
             MethodDesignLabel.AutoSize = true;
             MethodDesignLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, 204);
-            MethodDesignLabel.Location = new System.Drawing.Point(28, 214);
+            MethodDesignLabel.Location = new System.Drawing.Point(31, 202);
             MethodDesignLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             MethodDesignLabel.Name = "MethodDesignLabel";
             MethodDesignLabel.Size = new System.Drawing.Size(213, 20);
@@ -125,14 +131,14 @@
             functionLabel.TabIndex = 83;
             functionLabel.Text = "Ваш интеграл:";
             // 
-            // FirstIntervalLimitation
+            // IntervalLimitation
             // 
-            FirstIntervalLimitation.Location = new System.Drawing.Point(9, 122);
-            FirstIntervalLimitation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            FirstIntervalLimitation.Name = "FirstIntervalLimitation";
-            FirstIntervalLimitation.Size = new System.Drawing.Size(80, 23);
-            FirstIntervalLimitation.TabIndex = 81;
-            FirstIntervalLimitation.Text = "0";
+            IntervalLimitation.Location = new System.Drawing.Point(9, 122);
+            IntervalLimitation.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            IntervalLimitation.Name = "IntervalLimitation";
+            IntervalLimitation.Size = new System.Drawing.Size(80, 23);
+            IntervalLimitation.TabIndex = 81;
+            IntervalLimitation.Text = "0";
             // 
             // function
             // 
@@ -169,6 +175,7 @@
             toolStripTextBox2.Size = new System.Drawing.Size(116, 23);
             toolStripTextBox2.Text = "Искать";
             toolStripTextBox2.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            toolStripTextBox2.Click += toolStripTextBox2_Click;
             // 
             // dx
             // 
@@ -199,10 +206,10 @@
             integralGroup.Controls.Add(trapezoid);
             integralGroup.Controls.Add(rectangle);
             integralGroup.Controls.Add(countOfIterations);
-            integralGroup.Controls.Add(FirstIntervalLimitation);
-            integralGroup.Location = new System.Drawing.Point(34, 250);
+            integralGroup.Controls.Add(IntervalLimitation);
+            integralGroup.Location = new System.Drawing.Point(34, 225);
             integralGroup.Name = "integralGroup";
-            integralGroup.Size = new System.Drawing.Size(198, 165);
+            integralGroup.Size = new System.Drawing.Size(170, 165);
             integralGroup.TabIndex = 107;
             integralGroup.TabStop = false;
             integralGroup.Text = "Расчёт интеграла:";
@@ -237,11 +244,45 @@
             rectangle.Text = "Прямоугольниками";
             rectangle.UseVisualStyleBackColor = true;
             // 
+            // resultBox
+            // 
+            resultBox.Controls.Add(simpsonResult);
+            resultBox.Controls.Add(trapezoidResult);
+            resultBox.Controls.Add(rectangleResult);
+            resultBox.Location = new System.Drawing.Point(34, 396);
+            resultBox.Name = "resultBox";
+            resultBox.Size = new System.Drawing.Size(200, 111);
+            resultBox.TabIndex = 108;
+            resultBox.TabStop = false;
+            resultBox.Text = "Результаты:";
+            // 
+            // simpsonResult
+            // 
+            simpsonResult.Location = new System.Drawing.Point(91, 76);
+            simpsonResult.Name = "simpsonResult";
+            simpsonResult.Size = new System.Drawing.Size(100, 23);
+            simpsonResult.TabIndex = 2;
+            // 
+            // trapezoidResult
+            // 
+            trapezoidResult.Location = new System.Drawing.Point(91, 47);
+            trapezoidResult.Name = "trapezoidResult";
+            trapezoidResult.Size = new System.Drawing.Size(100, 23);
+            trapezoidResult.TabIndex = 1;
+            // 
+            // rectangleResult
+            // 
+            rectangleResult.Location = new System.Drawing.Point(91, 18);
+            rectangleResult.Name = "rectangleResult";
+            rectangleResult.Size = new System.Drawing.Size(100, 23);
+            rectangleResult.TabIndex = 0;
+            // 
             // IntegralForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(924, 519);
+            Controls.Add(resultBox);
             Controls.Add(integralGroup);
             Controls.Add(upBorder);
             Controls.Add(lowBorder);
@@ -260,6 +301,8 @@
             menuStrip1.PerformLayout();
             integralGroup.ResumeLayout(false);
             integralGroup.PerformLayout();
+            resultBox.ResumeLayout(false);
+            resultBox.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -280,7 +323,7 @@
         private System.Windows.Forms.Label countOfIterations;
         private System.Windows.Forms.Label functionLabel;
         private System.Windows.Forms.TextBox SecondIntervalLimitation;
-        private System.Windows.Forms.TextBox FirstIntervalLimitation;
+        private System.Windows.Forms.TextBox IntervalLimitation;
         private System.Windows.Forms.TextBox function;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox1;
@@ -292,5 +335,10 @@
         private System.Windows.Forms.CheckBox rectangle;
         private System.Windows.Forms.CheckBox trapezoid;
         private System.Windows.Forms.CheckBox simpson;
+        private System.Windows.Forms.GroupBox resultBox;
+        private System.Windows.Forms.TextBox rectangleResult;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.TextBox simpsonResult;
+        private System.Windows.Forms.TextBox trapezoidResult;
     }
 }

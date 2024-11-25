@@ -26,16 +26,64 @@ namespace Lab1
         {
             return Convert.ToDouble(interval.Text);
         }
+
         double IIntegralView.upLimit()
         {
             return Convert.ToDouble(upBorder.Text);
         }
+
         double IIntegralView.lowLimit()
         {
             return Convert.ToDouble(lowBorder.Text);
         }
 
-        string IIntegralView.returnFunction() 
+        int IIntegralView.IntegralIntervalCount()
+        {
+            return Convert.ToInt32(IntervalLimitation.Text);
+        }
+
+        bool IIntegralView.IsRectangleActive()
+        {
+            if (rectangle.Checked)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        bool IIntegralView.IsTrapezoidActive()
+        {
+            if (trapezoid.Checked)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        bool IIntegralView.IsSimpsonActive()
+        {
+            if (simpson.Checked)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        void IIntegralView.ShowResult(double[] inputArray)
+        {
+            rectangleResult.Text = inputArray[0].ToString();
+        }
+
+        string IIntegralView.returnFunction()
         {
             if (function.Text.Contains("x"))
             {
@@ -47,14 +95,23 @@ namespace Lab1
                 return "x";
             }
         }
+
         void IIntegralView.ShowGraph(PlotModel plotModel)
         {
             this.pvGraph.Model = plotModel;
         }
+
         public event EventHandler<EventArgs> CreateIntegralGraph;
+        public event EventHandler<EventArgs> Calculate;
+
         private void toolStripTextBox1_Click(object sender, EventArgs inputEvent)
         {
             CreateIntegralGraph(sender, inputEvent);
+        }
+
+        private void toolStripTextBox2_Click(object sender, EventArgs inputEvent)
+        {
+            Calculate(sender, inputEvent);
         }
     }
 }

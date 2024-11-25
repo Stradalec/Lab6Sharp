@@ -1139,10 +1139,6 @@ namespace Lab1
 
         private double SimpsonMethod(string function, double lowBorder, double upBorder, int intervalCount)
         {
-            if (intervalCount % 2 != 0) 
-            {
-                ++intervalCount;
-            }
             double result = 0;
             double smallIntegralWidth = (upBorder - lowBorder) / intervalCount;
             var context = new ExpressionContext();

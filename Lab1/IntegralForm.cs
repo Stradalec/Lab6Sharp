@@ -82,6 +82,7 @@ namespace Lab1
         {
             rectangleResult.Text = inputArray[0].ToString();
             trapezoidResult.Text = inputArray[1].ToString();
+            simpsonResult.Text = inputArray[2].ToString();
         }
 
         string IIntegralView.returnFunction()

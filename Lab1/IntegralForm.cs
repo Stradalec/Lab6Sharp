@@ -81,6 +81,7 @@ namespace Lab1
         void IIntegralView.ShowResult(double[] inputArray)
         {
             rectangleResult.Text = inputArray[0].ToString();
+            trapezoidResult.Text = inputArray[1].ToString();
         }
 
         string IIntegralView.returnFunction()

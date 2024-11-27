@@ -100,6 +100,20 @@ namespace Lab1
             }
         }
 
+        void IIntegralView.UpdateGraph(List<double[]> inputArr)
+        {
+            var plotModel = this.pvGraph.Model;
+            var lineSeries = new LineSeries {
+                Title = "Дополнительное построение",
+                Color = OxyColor.FromRgb(0, 128, 0)
+            };
+            foreach (var line in inputArr)
+            {
+                lineSeries.Points.Add(new DataPoint(line[0], line[1]));
+            }
+            plotModel.Series.Add(lineSeries);
+            this.pvGraph.Model = plotModel;
+        }
         bool IIntegralView.IsRectangleActive()
         {
             if (rectangle.Checked)

@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             dichotomyButton = new System.Windows.Forms.Button();
             tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            pictureBox6 = new System.Windows.Forms.PictureBox();
             pictureBox5 = new System.Windows.Forms.PictureBox();
             pictureBox4 = new System.Windows.Forms.PictureBox();
             pictureBox3 = new System.Windows.Forms.PictureBox();
@@ -45,11 +46,13 @@
             GoldenRatioButton = new System.Windows.Forms.Button();
             NewtonButton = new System.Windows.Forms.Button();
             pictureBox1 = new System.Windows.Forms.PictureBox();
+            integralButton = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             button1 = new System.Windows.Forms.Button();
-            integralButton = new System.Windows.Forms.Button();
+            richTextBox6 = new System.Windows.Forms.RichTextBox();
             tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
@@ -79,6 +82,8 @@
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 12F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68F));
             tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            tableLayoutPanel1.Controls.Add(richTextBox6, 1, 5);
+            tableLayoutPanel1.Controls.Add(pictureBox6, 0, 5);
             tableLayoutPanel1.Controls.Add(pictureBox5, 0, 4);
             tableLayoutPanel1.Controls.Add(pictureBox4, 0, 3);
             tableLayoutPanel1.Controls.Add(pictureBox3, 0, 2);
@@ -110,6 +115,17 @@
             tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 12.5F));
             tableLayoutPanel1.Size = new System.Drawing.Size(1017, 498);
             tableLayoutPanel1.TabIndex = 1;
+            // 
+            // pictureBox6
+            // 
+            pictureBox6.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
+            pictureBox6.Image = (System.Drawing.Image)resources.GetObject("pictureBox6.Image");
+            pictureBox6.Location = new System.Drawing.Point(7, 315);
+            pictureBox6.Name = "pictureBox6";
+            pictureBox6.Size = new System.Drawing.Size(110, 54);
+            pictureBox6.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            pictureBox6.TabIndex = 16;
+            pictureBox6.TabStop = false;
             // 
             // pictureBox5
             // 
@@ -263,6 +279,19 @@
             pictureBox1.TabIndex = 10;
             pictureBox1.TabStop = false;
             // 
+            // integralButton
+            // 
+            integralButton.AutoSize = true;
+            integralButton.Location = new System.Drawing.Point(817, 315);
+            integralButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            integralButton.Name = "integralButton";
+            integralButton.Size = new System.Drawing.Size(193, 54);
+            integralButton.TabIndex = 15;
+            integralButton.Text = "Интеграл";
+            integralButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            integralButton.UseVisualStyleBackColor = true;
+            integralButton.Click += integralButton_Click;
+            // 
             // label1
             // 
             label1.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom;
@@ -294,18 +323,14 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
-            // integralButton
+            // richTextBox6
             // 
-            integralButton.AutoSize = true;
-            integralButton.Location = new System.Drawing.Point(817, 315);
-            integralButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            integralButton.Name = "integralButton";
-            integralButton.Size = new System.Drawing.Size(193, 54);
-            integralButton.TabIndex = 15;
-            integralButton.Text = "Интеграл";
-            integralButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            integralButton.UseVisualStyleBackColor = true;
-            integralButton.Click += integralButton_Click;
+            richTextBox6.Location = new System.Drawing.Point(128, 315);
+            richTextBox6.Name = "richTextBox6";
+            richTextBox6.ReadOnly = true;
+            richTextBox6.Size = new System.Drawing.Size(667, 46);
+            richTextBox6.TabIndex = 17;
+            richTextBox6.Text = "Расчёт интеграла.\nРасчёт интеграла различнейшими способами.\n\n\n\n\n\n\n\n\nКто вообще это читает?";
             // 
             // MainForm
             // 
@@ -324,6 +349,7 @@
             Text = "Приложение";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
@@ -355,6 +381,8 @@
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.Button integralButton;
+        private System.Windows.Forms.PictureBox pictureBox6;
+        private System.Windows.Forms.RichTextBox richTextBox6;
     }
 }
 

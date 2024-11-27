@@ -37,6 +37,11 @@ namespace Lab1
             return Convert.ToDouble(lowBorder.Text);
         }
 
+        double IIntegralView.Accuracy()
+        {
+            return Convert.ToDouble(formatBox.Text);
+        }
+
         int IIntegralView.IntegralIntervalCount()
         {
             return Convert.ToInt32(IntervalLimitation.Text);
@@ -92,6 +97,11 @@ namespace Lab1
 
         }
 
+        void IIntegralView.ReverseResult(int countOfIterations)
+        {
+            MessageBox.Show("Необходимое n = " + countOfIterations, "Результат", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         string IIntegralView.returnFunction()
         {
             if (function.Text.Contains("x"))
@@ -112,6 +122,7 @@ namespace Lab1
 
         public event EventHandler<EventArgs> CreateIntegralGraph;
         public event EventHandler<EventArgs> Calculate;
+        public event EventHandler<EventArgs> ReverseMode;
 
         private void toolStripTextBox1_Click(object sender, EventArgs inputEvent)
         {
@@ -121,6 +132,11 @@ namespace Lab1
         private void toolStripTextBox2_Click(object sender, EventArgs inputEvent)
         {
             Calculate(sender, inputEvent);
+        }
+
+        private void toolStripTextBox3_Click(object sender, EventArgs inputEvent)
+        {
+            ReverseMode(sender, inputEvent);
         }
     }
 }

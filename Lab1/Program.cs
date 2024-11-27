@@ -90,6 +90,8 @@ namespace Lab1
         double lowLimit();
         double upLimit();
 
+        double Accuracy();
+
         int IntegralIntervalCount();
 
         bool IsRectangleActive();
@@ -103,9 +105,12 @@ namespace Lab1
 
         void ShowResult(double[] inputArray);
 
+        void ReverseResult(int countOfIterations);
+
 
         event EventHandler<EventArgs> CreateIntegralGraph;
         event EventHandler<EventArgs> Calculate;
+        event EventHandler<EventArgs> ReverseMode;
     }
 
     // Модель. Основная часть работы программы происходит здесь
@@ -1096,6 +1101,34 @@ namespace Lab1
             return resultArray;
         }
 
+        public int ReverseIntegral(string function, double lowBorder, double upBorder, double accuracy) 
+        {
+            int result = 2;
+            double[] methodResults =  new double[3];
+            bool IsWorking = true;
+            while (IsWorking)
+            {
+                methodResults[0] = rectangleMethod(function, lowBorder, upBorder, result);
+                methodResults[1] = trapezoidMethod(function, lowBorder, upBorder, result);
+                methodResults[2] = SimpsonMethod(function, lowBorder, upBorder, result);
+                methodResults[0] = Math.Truncate(methodResults[0] * Math.Pow(10, accuracy)) / Math.Pow(10, accuracy);
+                methodResults[1] = Math.Truncate(methodResults[1] * Math.Pow(10, accuracy)) / Math.Pow(10, accuracy);
+                methodResults[2] = Math.Truncate(methodResults[2] * Math.Pow(10, accuracy)) / Math.Pow(10, accuracy);
+                if (methodResults[0] == methodResults[1] && methodResults[0] == methodResults[2])
+                {
+                    IsWorking = false;
+                }
+                else 
+                {
+                    ++result;
+                }
+                
+            }
+            
+            
+            return result;
+        }
+
         private double rectangleMethod(string function, double lowBorder, double upBorder, int intervalCount) 
         {
             double result = 0;
@@ -1239,6 +1272,7 @@ namespace Lab1
 
             integralView.CreateIntegralGraph += new EventHandler<EventArgs>(IntegralGraph);
             integralView.Calculate += new EventHandler<EventArgs>(CalculateIntegral);
+            integralView.ReverseMode += new EventHandler<EventArgs>(StartReverse);
         }
 
 
@@ -1247,6 +1281,13 @@ namespace Lab1
             var output = model.CalculateIntegral(integralView.returnFunction(), integralView.lowLimit(), integralView.upLimit(), integralView.IntegralIntervalCount(), integralView.IsRectangleActive(), integralView.IsTrapezoidActive(), integralView.IsSimpsonActive());
             integralView.ShowResult(output);
         }
+
+        private void StartReverse(object sender, EventArgs inputEvent) 
+        {
+            var output = model.ReverseIntegral(integralView.returnFunction(), integralView.lowLimit(), integralView.upLimit(), integralView.Accuracy());
+            integralView.ReverseResult(output);
+        }
+
         private void IntegralGraph(object sender, EventArgs inputEvent) 
         {
             var output = model.CreateIntegralGraph(integralView.Interval(), integralView.lowLimit(), integralView.upLimit(), integralView.returnFunction());

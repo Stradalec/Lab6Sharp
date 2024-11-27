@@ -48,16 +48,17 @@
             trapezoid = new System.Windows.Forms.CheckBox();
             rectangle = new System.Windows.Forms.CheckBox();
             resultBox = new System.Windows.Forms.GroupBox();
+            SimpsonResultLabel = new System.Windows.Forms.Label();
+            trapezoidResultLabel = new System.Windows.Forms.Label();
+            rectangleResultLabel = new System.Windows.Forms.Label();
             simpsonResult = new System.Windows.Forms.TextBox();
             trapezoidResult = new System.Windows.Forms.TextBox();
             rectangleResult = new System.Windows.Forms.TextBox();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             integral = new System.Windows.Forms.Label();
-            rectangleResultLabel = new System.Windows.Forms.Label();
-            trapezoidResultLabel = new System.Windows.Forms.Label();
-            SimpsonResultLabel = new System.Windows.Forms.Label();
             formatBox = new System.Windows.Forms.TextBox();
             label1 = new System.Windows.Forms.Label();
+            toolStripTextBox3 = new System.Windows.Forms.ToolStripTextBox();
             menuStrip1.SuspendLayout();
             integralGroup.SuspendLayout();
             resultBox.SuspendLayout();
@@ -157,7 +158,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripTextBox1, toolStripTextBox2 });
+            menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] { toolStripTextBox1, toolStripTextBox2, toolStripTextBox3 });
             menuStrip1.Location = new System.Drawing.Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
@@ -265,6 +266,33 @@
             resultBox.TabStop = false;
             resultBox.Text = "Результаты:";
             // 
+            // SimpsonResultLabel
+            // 
+            SimpsonResultLabel.AutoSize = true;
+            SimpsonResultLabel.Location = new System.Drawing.Point(10, 76);
+            SimpsonResultLabel.Name = "SimpsonResultLabel";
+            SimpsonResultLabel.Size = new System.Drawing.Size(61, 15);
+            SimpsonResultLabel.TabIndex = 5;
+            SimpsonResultLabel.Text = "Симпсон:";
+            // 
+            // trapezoidResultLabel
+            // 
+            trapezoidResultLabel.AutoSize = true;
+            trapezoidResultLabel.Location = new System.Drawing.Point(10, 47);
+            trapezoidResultLabel.Name = "trapezoidResultLabel";
+            trapezoidResultLabel.Size = new System.Drawing.Size(63, 15);
+            trapezoidResultLabel.TabIndex = 4;
+            trapezoidResultLabel.Text = "Трапеции:";
+            // 
+            // rectangleResultLabel
+            // 
+            rectangleResultLabel.AutoSize = true;
+            rectangleResultLabel.Location = new System.Drawing.Point(10, 21);
+            rectangleResultLabel.Name = "rectangleResultLabel";
+            rectangleResultLabel.Size = new System.Drawing.Size(62, 15);
+            rectangleResultLabel.TabIndex = 3;
+            rectangleResultLabel.Text = "Прямоуг.:";
+            // 
             // simpsonResult
             // 
             simpsonResult.Location = new System.Drawing.Point(91, 76);
@@ -296,33 +324,6 @@
             integral.TabIndex = 109;
             integral.Text = "∫";
             // 
-            // rectangleResultLabel
-            // 
-            rectangleResultLabel.AutoSize = true;
-            rectangleResultLabel.Location = new System.Drawing.Point(10, 21);
-            rectangleResultLabel.Name = "rectangleResultLabel";
-            rectangleResultLabel.Size = new System.Drawing.Size(62, 15);
-            rectangleResultLabel.TabIndex = 3;
-            rectangleResultLabel.Text = "Прямоуг.:";
-            // 
-            // trapezoidResultLabel
-            // 
-            trapezoidResultLabel.AutoSize = true;
-            trapezoidResultLabel.Location = new System.Drawing.Point(10, 47);
-            trapezoidResultLabel.Name = "trapezoidResultLabel";
-            trapezoidResultLabel.Size = new System.Drawing.Size(63, 15);
-            trapezoidResultLabel.TabIndex = 4;
-            trapezoidResultLabel.Text = "Трапеции:";
-            // 
-            // SimpsonResultLabel
-            // 
-            SimpsonResultLabel.AutoSize = true;
-            SimpsonResultLabel.Location = new System.Drawing.Point(10, 76);
-            SimpsonResultLabel.Name = "SimpsonResultLabel";
-            SimpsonResultLabel.Size = new System.Drawing.Size(61, 15);
-            SimpsonResultLabel.TabIndex = 5;
-            SimpsonResultLabel.Text = "Симпсон:";
-            // 
             // formatBox
             // 
             formatBox.Location = new System.Drawing.Point(228, 361);
@@ -338,6 +339,14 @@
             label1.Size = new System.Drawing.Size(114, 15);
             label1.TabIndex = 111;
             label1.Text = "Заданная точность:";
+            // 
+            // toolStripTextBox3
+            // 
+            toolStripTextBox3.Name = "toolStripTextBox3";
+            toolStripTextBox3.ReadOnly = true;
+            toolStripTextBox3.Size = new System.Drawing.Size(100, 23);
+            toolStripTextBox3.Text = "Обратный ход";
+            toolStripTextBox3.Click += toolStripTextBox3_Click;
             // 
             // IntegralForm
             // 
@@ -409,5 +418,6 @@
         private System.Windows.Forms.Label SimpsonResultLabel;
         private System.Windows.Forms.Label rectangleResultLabel;
         private System.Windows.Forms.TextBox formatBox;
+        private System.Windows.Forms.ToolStripTextBox toolStripTextBox3;
     }
 }

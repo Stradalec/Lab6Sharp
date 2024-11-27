@@ -80,9 +80,16 @@ namespace Lab1
 
         void IIntegralView.ShowResult(double[] inputArray)
         {
+            if (formatBox.Text.Length != 0)
+            {
+                inputArray[0] = Math.Truncate(inputArray[0] * Math.Pow(10, Convert.ToInt32(formatBox.Text))) / Math.Pow(10, Convert.ToInt32(formatBox.Text));
+                inputArray[1] = Math.Truncate(inputArray[1] * Math.Pow(10, Convert.ToInt32(formatBox.Text))) / Math.Pow(10, Convert.ToInt32(formatBox.Text));
+                inputArray[2] = Math.Truncate(inputArray[2] * Math.Pow(10, Convert.ToInt32(formatBox.Text))) / Math.Pow(10, Convert.ToInt32(formatBox.Text));
+            }
             rectangleResult.Text = inputArray[0].ToString();
             trapezoidResult.Text = inputArray[1].ToString();
             simpsonResult.Text = inputArray[2].ToString();
+
         }
 
         string IIntegralView.returnFunction()

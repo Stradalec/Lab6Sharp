@@ -52,6 +52,12 @@
             trapezoidResult = new System.Windows.Forms.TextBox();
             rectangleResult = new System.Windows.Forms.TextBox();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            integral = new System.Windows.Forms.Label();
+            rectangleResultLabel = new System.Windows.Forms.Label();
+            trapezoidResultLabel = new System.Windows.Forms.Label();
+            SimpsonResultLabel = new System.Windows.Forms.Label();
+            formatBox = new System.Windows.Forms.TextBox();
+            label1 = new System.Windows.Forms.Label();
             menuStrip1.SuspendLayout();
             integralGroup.SuspendLayout();
             resultBox.SuspendLayout();
@@ -59,11 +65,11 @@
             // 
             // pvGraph
             // 
-            pvGraph.Location = new System.Drawing.Point(333, 20);
+            pvGraph.Location = new System.Drawing.Point(356, 12);
             pvGraph.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             pvGraph.Name = "pvGraph";
             pvGraph.PanCursor = System.Windows.Forms.Cursors.Hand;
-            pvGraph.Size = new System.Drawing.Size(555, 395);
+            pvGraph.Size = new System.Drawing.Size(555, 495);
             pvGraph.TabIndex = 103;
             pvGraph.Text = "plotView1";
             pvGraph.ZoomHorizontalCursor = System.Windows.Forms.Cursors.SizeWE;
@@ -142,7 +148,7 @@
             // 
             // function
             // 
-            function.Location = new System.Drawing.Point(126, 81);
+            function.Location = new System.Drawing.Point(171, 84);
             function.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             function.Name = "function";
             function.Size = new System.Drawing.Size(129, 23);
@@ -180,7 +186,7 @@
             // dx
             // 
             dx.AutoSize = true;
-            dx.Location = new System.Drawing.Point(262, 85);
+            dx.Location = new System.Drawing.Point(307, 88);
             dx.Name = "dx";
             dx.Size = new System.Drawing.Size(20, 15);
             dx.TabIndex = 104;
@@ -188,14 +194,14 @@
             // 
             // lowBorder
             // 
-            lowBorder.Location = new System.Drawing.Point(116, 110);
+            lowBorder.Location = new System.Drawing.Point(116, 122);
             lowBorder.Name = "lowBorder";
             lowBorder.Size = new System.Drawing.Size(48, 23);
             lowBorder.TabIndex = 105;
             // 
             // upBorder
             // 
-            upBorder.Location = new System.Drawing.Point(116, 52);
+            upBorder.Location = new System.Drawing.Point(116, 50);
             upBorder.Name = "upBorder";
             upBorder.Size = new System.Drawing.Size(48, 23);
             upBorder.TabIndex = 106;
@@ -246,6 +252,9 @@
             // 
             // resultBox
             // 
+            resultBox.Controls.Add(SimpsonResultLabel);
+            resultBox.Controls.Add(trapezoidResultLabel);
+            resultBox.Controls.Add(rectangleResultLabel);
             resultBox.Controls.Add(simpsonResult);
             resultBox.Controls.Add(trapezoidResult);
             resultBox.Controls.Add(rectangleResult);
@@ -277,11 +286,67 @@
             rectangleResult.Size = new System.Drawing.Size(100, 23);
             rectangleResult.TabIndex = 0;
             // 
+            // integral
+            // 
+            integral.AutoSize = true;
+            integral.Font = new System.Drawing.Font("Segoe UI", 25F);
+            integral.Location = new System.Drawing.Point(121, 73);
+            integral.Name = "integral";
+            integral.Size = new System.Drawing.Size(38, 46);
+            integral.TabIndex = 109;
+            integral.Text = "∫";
+            // 
+            // rectangleResultLabel
+            // 
+            rectangleResultLabel.AutoSize = true;
+            rectangleResultLabel.Location = new System.Drawing.Point(10, 21);
+            rectangleResultLabel.Name = "rectangleResultLabel";
+            rectangleResultLabel.Size = new System.Drawing.Size(62, 15);
+            rectangleResultLabel.TabIndex = 3;
+            rectangleResultLabel.Text = "Прямоуг.:";
+            // 
+            // trapezoidResultLabel
+            // 
+            trapezoidResultLabel.AutoSize = true;
+            trapezoidResultLabel.Location = new System.Drawing.Point(10, 47);
+            trapezoidResultLabel.Name = "trapezoidResultLabel";
+            trapezoidResultLabel.Size = new System.Drawing.Size(63, 15);
+            trapezoidResultLabel.TabIndex = 4;
+            trapezoidResultLabel.Text = "Трапеции:";
+            // 
+            // SimpsonResultLabel
+            // 
+            SimpsonResultLabel.AutoSize = true;
+            SimpsonResultLabel.Location = new System.Drawing.Point(10, 76);
+            SimpsonResultLabel.Name = "SimpsonResultLabel";
+            SimpsonResultLabel.Size = new System.Drawing.Size(61, 15);
+            SimpsonResultLabel.TabIndex = 5;
+            SimpsonResultLabel.Text = "Симпсон:";
+            // 
+            // formatBox
+            // 
+            formatBox.Location = new System.Drawing.Point(228, 361);
+            formatBox.Name = "formatBox";
+            formatBox.Size = new System.Drawing.Size(100, 23);
+            formatBox.TabIndex = 110;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new System.Drawing.Point(221, 341);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(114, 15);
+            label1.TabIndex = 111;
+            label1.Text = "Заданная точность:";
+            // 
             // IntegralForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(924, 519);
+            Controls.Add(label1);
+            Controls.Add(formatBox);
+            Controls.Add(integral);
             Controls.Add(resultBox);
             Controls.Add(integralGroup);
             Controls.Add(upBorder);
@@ -315,7 +380,7 @@
         private System.Windows.Forms.TextBox IterationBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox interval;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label trapezoidResultLabel;
         internal System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox LimitationBox;
         private System.Windows.Forms.TextBox epsilonBox;
@@ -340,5 +405,9 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.TextBox simpsonResult;
         private System.Windows.Forms.TextBox trapezoidResult;
+        private System.Windows.Forms.Label integral;
+        private System.Windows.Forms.Label SimpsonResultLabel;
+        private System.Windows.Forms.Label rectangleResultLabel;
+        private System.Windows.Forms.TextBox formatBox;
     }
 }

@@ -76,7 +76,7 @@ namespace Lab1
             if (string.IsNullOrEmpty(formatBox.Text) || (matches = regex.IsMatch(formatBox.Text)) == false)
             {
                 MessageBox.Show("Ошибка ввода значения точности", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return 0;
+                return 2;
                 
             }
             else

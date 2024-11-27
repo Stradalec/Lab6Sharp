@@ -1143,26 +1143,60 @@ namespace Lab1
             double smallIntegralWidth = (upBorder - lowBorder) / intervalCount;
             var context = new ExpressionContext();
             context.Imports.AddType(typeof(Math));
-            for (int trapezoidIndex = 0; trapezoidIndex < intervalCount; ++trapezoidIndex)
-            {
-                double firstTempX = lowBorder + trapezoidIndex * smallIntegralWidth;
-                double secondTempX = lowBorder + (trapezoidIndex + 0.5) * smallIntegralWidth;
-                double thirdTempX = lowBorder + (trapezoidIndex + 1) * smallIntegralWidth;
+            List<double> firstXResults = new List<double>();
 
+            double firstTempX = lowBorder;
+            while (firstTempX <= upBorder) 
+            {
                 context.Variables["x"] = firstTempX;
                 var expression = context.CompileGeneric<double>(function);
-                double firstResolvedX = (double)expression.Evaluate();
-
-                context.Variables["x"] = secondTempX;
-                expression = context.CompileGeneric<double>(function);
-                double secondResolvedX = (double)expression.Evaluate();
-                
-                context.Variables["x"] = thirdTempX;
-                expression = context.CompileGeneric<double>(function);
-                double thirdResolvedX = (double)expression.Evaluate();
-
-                result += (firstResolvedX + 4 * secondResolvedX + thirdResolvedX) / 6 * smallIntegralWidth;
+                firstXResults.Add((double)expression.Evaluate());
+                firstTempX += smallIntegralWidth;
             }
+
+            double temporarySumm = 0;
+            int index = 1;
+
+            while (index <= firstXResults.Count() - 2) 
+            {
+                temporarySumm += firstXResults[index];
+                index += 2;
+            }
+
+            double secondStageSumm = 4 * temporarySumm;
+
+            double secondTempSumm  = 0;
+            int secondIndex = 2;
+
+            while (secondIndex <= firstXResults.Count() - 2) 
+            {
+                secondTempSumm += firstXResults[secondIndex];
+                secondIndex += 2;
+            }
+
+            double LastStageSumm = 2 * secondTempSumm;
+
+            result = (smallIntegralWidth / 3) * ((firstXResults[0] + firstXResults[firstXResults.Count - 1]) + LastStageSumm + secondStageSumm);
+            //for (int trapezoidIndex = 0; trapezoidIndex < intervalCount; ++trapezoidIndex)
+            //{
+            //    double firstTempX = lowBorder + trapezoidIndex * smallIntegralWidth;
+            //    double secondTempX = lowBorder + (trapezoidIndex + 0.5) * smallIntegralWidth;
+            //    double thirdTempX = lowBorder + (trapezoidIndex + 1) * smallIntegralWidth;
+
+            //    context.Variables["x"] = firstTempX;
+            //    var expression = context.CompileGeneric<double>(function);
+            //    double firstResolvedX = (double)expression.Evaluate();
+
+            //    context.Variables["x"] = secondTempX;
+            //    expression = context.CompileGeneric<double>(function);
+            //    double secondResolvedX = (double)expression.Evaluate();
+                
+            //    context.Variables["x"] = thirdTempX;
+            //    expression = context.CompileGeneric<double>(function);
+            //    double thirdResolvedX = (double)expression.Evaluate();
+
+            //    result += (firstResolvedX + 4 * secondResolvedX + thirdResolvedX) / 6 * smallIntegralWidth;
+            //}
 
             return result;
         }

@@ -10,12 +10,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Office.Interop.Excel;
+using NPOI.SS.Formula.Functions;
 
 namespace Lab1
 {
     public partial class IntegralForm : Form, IIntegralView
     {
-
+        private Regex regex = new Regex(@"^[\d,-]+$");
         public IntegralForm()
         {
             InitializeComponent();
@@ -24,27 +26,78 @@ namespace Lab1
 
         double IIntegralView.Interval()
         {
-            return Convert.ToDouble(interval.Text);
+            bool matches;
+            if (string.IsNullOrEmpty(interval.Text) || (matches = regex.IsMatch(interval.Text)) == false)
+            {
+                MessageBox.Show("Ошибка ввода числа построения осей", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+                
+            }
+            else 
+            {
+                return Convert.ToDouble(interval.Text);
+            }
+            
         }
 
         double IIntegralView.upLimit()
         {
-            return Convert.ToDouble(upBorder.Text);
+            bool matches;
+            if (string.IsNullOrEmpty(upBorder.Text) || (matches = regex.IsMatch(upBorder.Text)) == false)
+            {
+                MessageBox.Show("Ошибка ввода верхнего значения интеграла", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;               
+            }
+            else
+            {
+                
+                return Convert.ToDouble(upBorder.Text);
+            }
+            
         }
 
         double IIntegralView.lowLimit()
         {
-            return Convert.ToDouble(lowBorder.Text);
+            bool matches;
+            if (string.IsNullOrEmpty(lowBorder.Text) || (matches = regex.IsMatch(lowBorder.Text)) == false)
+            {
+                MessageBox.Show("Ошибка ввода нижнего значения интеграла", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+            }
+            else
+            {                
+                return Convert.ToDouble(lowBorder.Text);               
+            }
         }
 
         double IIntegralView.Accuracy()
         {
-            return Convert.ToDouble(formatBox.Text);
+            bool matches;
+            if (string.IsNullOrEmpty(formatBox.Text) || (matches = regex.IsMatch(formatBox.Text)) == false)
+            {
+                MessageBox.Show("Ошибка ввода значения точности", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 0;
+                
+            }
+            else
+            {
+                return Convert.ToDouble(formatBox.Text);
+            }
         }
 
         int IIntegralView.IntegralIntervalCount()
         {
-            return Convert.ToInt32(IntervalLimitation.Text);
+            bool matches;
+            if (string.IsNullOrEmpty(IntervalLimitation.Text) || (matches = regex.IsMatch(IntervalLimitation.Text)) == false)
+            {
+                MessageBox.Show("Ошибка ввода значения количества интервалов", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return 2;
+                
+            }
+            else
+            {
+                return Convert.ToInt32(IntervalLimitation.Text);
+            }
         }
 
         bool IIntegralView.IsRectangleActive()

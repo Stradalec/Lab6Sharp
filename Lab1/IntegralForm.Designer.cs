@@ -45,7 +45,7 @@
             lowBorder = new System.Windows.Forms.TextBox();
             upBorder = new System.Windows.Forms.TextBox();
             integralGroup = new System.Windows.Forms.GroupBox();
-            simpson = new System.Windows.Forms.CheckBox();
+            simpsonT = new System.Windows.Forms.CheckBox();
             trapezoid = new System.Windows.Forms.CheckBox();
             rectangle = new System.Windows.Forms.CheckBox();
             resultBox = new System.Windows.Forms.GroupBox();
@@ -218,7 +218,7 @@
             // 
             // integralGroup
             // 
-            integralGroup.Controls.Add(simpson);
+            integralGroup.Controls.Add(simpsonT);
             integralGroup.Controls.Add(trapezoid);
             integralGroup.Controls.Add(rectangle);
             integralGroup.Controls.Add(countOfIterations);
@@ -230,15 +230,15 @@
             integralGroup.TabStop = false;
             integralGroup.Text = "Расчёт интеграла:";
             // 
-            // simpson
+            // simpsonT
             // 
-            simpson.AutoSize = true;
-            simpson.Location = new System.Drawing.Point(6, 72);
-            simpson.Name = "simpson";
-            simpson.Size = new System.Drawing.Size(83, 19);
-            simpson.TabIndex = 110;
-            simpson.Text = "Симпсона";
-            simpson.UseVisualStyleBackColor = true;
+            simpsonT.AutoSize = true;
+            simpsonT.Location = new System.Drawing.Point(6, 72);
+            simpsonT.Name = "simpson";
+            simpsonT.Size = new System.Drawing.Size(83, 19);
+            simpsonT.TabIndex = 110;
+            simpsonT.Text = "Симпсона";
+            simpsonT.UseVisualStyleBackColor = true;
             // 
             // trapezoid
             // 
@@ -409,7 +409,7 @@
         private System.Windows.Forms.GroupBox integralGroup;
         private System.Windows.Forms.CheckBox rectangle;
         private System.Windows.Forms.CheckBox trapezoid;
-        private System.Windows.Forms.CheckBox simpson;
+        private System.Windows.Forms.CheckBox simpsonT;
         private System.Windows.Forms.GroupBox resultBox;
         private System.Windows.Forms.TextBox rectangleResult;
         private System.Windows.Forms.TextBox simpsonResult;

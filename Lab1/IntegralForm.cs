@@ -23,6 +23,27 @@ namespace Lab1
         private Rectangle recUpBorder;
         private Rectangle recLowBorder;
         private Rectangle recIntegral;
+        private Rectangle recpvGraph;
+        private Rectangle recfunction;
+        private Rectangle recdx;
+        private Rectangle reclabel4;
+        private Rectangle recInterval;
+        private Rectangle recMethodDesignLabel;
+        private Rectangle recIntegralGroup;
+        private Rectangle recRectangle;
+        private Rectangle recTrapezoid;
+        private Rectangle recSimpson;
+        private Rectangle recCountOfIterations;
+        private Rectangle recIntervalLimitation;
+        private Rectangle reclabel1;
+        private Rectangle recformatBox;
+        private Rectangle recResultBox;
+        private Rectangle recRectangleResultLabel;
+        private Rectangle recRectangleResult;
+        private Rectangle recTrapezoidResultLabel;
+        private Rectangle recTrapezoidResult;
+        private Rectangle recSimpsonResultLabel;
+        private Rectangle recSimpsonResult;
 
         public IntegralForm()
         {
@@ -35,6 +56,27 @@ namespace Lab1
             recUpBorder = new Rectangle(upBorder.Location, upBorder.Size);
             recLowBorder = new Rectangle(lowBorder.Location, lowBorder.Size);
             recIntegral = new Rectangle(integral.Location, integral.Size);
+            recpvGraph = new Rectangle(pvGraph.Location, pvGraph.Size);
+            recfunction = new Rectangle(function.Location, function.Size);
+            recdx = new Rectangle(dx.Location, dx.Size);
+            reclabel4 = new Rectangle(label4.Location, label4.Size);
+            recInterval = new Rectangle(interval.Location, interval.Size);
+            recMethodDesignLabel = new Rectangle(MethodDesignLabel.Location, MethodDesignLabel.Size);
+            recIntegralGroup = new Rectangle(integralGroup.Location, integralGroup.Size);
+            recRectangle = new Rectangle(rectangle.Location, rectangle.Size);
+            recTrapezoid = new Rectangle(trapezoid.Location, trapezoid.Size);
+            recSimpson = new Rectangle(simpsonT.Location, simpsonT.Size);
+            recCountOfIterations = new Rectangle(countOfIterations.Location, countOfIterations.Size);
+            recIntervalLimitation = new Rectangle(IntervalLimitation.Location, IntervalLimitation.Size);
+            reclabel1 = new Rectangle(label1.Location, label1.Size);
+            recformatBox = new Rectangle(formatBox.Location, formatBox.Size);
+            recResultBox =  new Rectangle(resultBox.Location, resultBox.Size);
+            recRectangleResultLabel = new Rectangle(rectangleResultLabel.Location, rectangleResultLabel.Size);
+            recRectangleResult = new Rectangle(rectangleResult.Location, rectangleResult.Size);
+            recTrapezoidResultLabel = new Rectangle(trapezoidResultLabel.Location, trapezoidResultLabel.Size);
+            recTrapezoidResult = new Rectangle(trapezoidResult.Location, trapezoidResult.Size);
+            recSimpsonResultLabel = new Rectangle(SimpsonResultLabel.Location, SimpsonResultLabel.Size);
+            recSimpsonResult = new Rectangle(simpsonResult.Location, simpsonResult.Size);
         }
 
         private void AutoResize(Control control, Rectangle rectangle)
@@ -55,6 +97,30 @@ namespace Lab1
         {
             AutoResize(GraphDesignLabel, recGraphDesignLabel);
             AutoResize(functionLabel, recfunctionLabel);
+            AutoResize(upBorder, recUpBorder);
+            AutoResize(lowBorder, recLowBorder);
+            AutoResize(integral, recIntegral);
+            AutoResize(pvGraph, recpvGraph);
+            AutoResize(function, recfunction);
+            AutoResize(dx, recdx);
+            AutoResize(label4, reclabel4);
+            AutoResize(interval, recInterval);
+            AutoResize(MethodDesignLabel, recMethodDesignLabel);
+            AutoResize(integralGroup, recIntegralGroup);
+            AutoResize(rectangle, recRectangle);
+            AutoResize(trapezoid, recTrapezoid);
+            AutoResize(simpsonT, recSimpson);
+            AutoResize(countOfIterations, recCountOfIterations);
+            AutoResize(IntervalLimitation, recIntervalLimitation);
+            AutoResize(label1, reclabel1);
+            AutoResize(formatBox, recformatBox);
+            AutoResize(resultBox, recResultBox);
+            AutoResize(rectangleResultLabel, recRectangleResultLabel);
+            AutoResize(rectangleResult, recRectangleResult);
+            AutoResize(trapezoidResultLabel, recTrapezoidResultLabel);
+            AutoResize(trapezoidResult, recTrapezoidResult);
+            AutoResize(SimpsonResultLabel, recSimpsonResultLabel);
+            AutoResize(simpsonResult, recSimpsonResult);
         }
 
         double IIntegralView.Interval()
@@ -203,7 +269,7 @@ namespace Lab1
 
         bool IIntegralView.IsSimpsonActive()
         {
-            if (simpson.Checked)
+            if (simpsonT.Checked)
             {
                 return true;
             }

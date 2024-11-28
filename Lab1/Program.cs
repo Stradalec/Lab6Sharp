@@ -1201,10 +1201,14 @@ namespace Lab1
         private (double, List<double[]>) SimpsonMethod(string function, double lowBorder, double upBorder, int intervalCount)
         {
             double result = 0;
+            int counter = 0;
             double smallIntegralWidth = (upBorder - lowBorder) / intervalCount;
             var context = new ExpressionContext();
             context.Imports.AddType(typeof(Math));
             List<double[]> array = new List<double[]>();
+            List<double[]> center = new List<double[]>();
+            List<double[]> right = new List<double[]>();
+            List<double[]> left = new List<double[]>();
             List<double> firstXResults = new List<double>();
 
             double firstTempX = lowBorder;
@@ -1215,8 +1219,7 @@ namespace Lab1
                 firstXResults.Add((double)expression.Evaluate());
                 
                 firstTempX += smallIntegralWidth;
-                array.Add(new double[] { firstTempX, (double)expression.Evaluate() });
-                array.Add(new double[] { double.NaN, double.NaN });
+                center.Add(new double[] { firstTempX, (double)expression.Evaluate() });
             }
 
             double temporarySumm = 0;
@@ -1225,7 +1228,7 @@ namespace Lab1
             while (index <= firstXResults.Count() - 2) 
             {
                 temporarySumm += firstXResults[index];
-                //array.Add(new double[] { index, firstXResults[index] });
+                left.Add(new double[] { index, firstXResults[index] });
                 index += 2;
             }
 
@@ -1237,11 +1240,19 @@ namespace Lab1
             while (secondIndex <= firstXResults.Count() - 2) 
             {
                 secondTempSumm += firstXResults[secondIndex];
-                //array.Add(new double[] { secondIndex, firstXResults[index] });
+                right.Add(new double[] { secondIndex, firstXResults[secondIndex] });
                 secondIndex += 2;
             }
 
-            
+            while (counter < right.Count) 
+            {
+                array.Add(left[counter]);               
+                array.Add(center[counter]);
+                array.Add(right[counter]);
+
+                array.Add(new double[] { double.NaN, double.NaN });
+                ++counter;
+            }
 
             double LastStageSumm = 2 * secondTempSumm;
 

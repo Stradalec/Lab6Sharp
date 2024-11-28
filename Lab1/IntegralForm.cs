@@ -10,18 +10,51 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Microsoft.Office.Interop.Excel;
 using NPOI.SS.Formula.Functions;
 
 namespace Lab1
 {
     public partial class IntegralForm : Form, IIntegralView
     {
+        private Size formOriginalSize;
         private Regex regex = new Regex(@"^[\d,-]+$");
+        private Rectangle recGraphDesignLabel;
+        private Rectangle recfunctionLabel;
+        private Rectangle recUpBorder;
+        private Rectangle recLowBorder;
+        private Rectangle recIntegral;
+
         public IntegralForm()
         {
             InitializeComponent();
             Presenter presenter = new Presenter(this);
+            this.Resize += IntegralForm_Resize;
+            formOriginalSize = this.Size;
+            recGraphDesignLabel = new Rectangle(GraphDesignLabel.Location, GraphDesignLabel.Size);
+            recfunctionLabel = new Rectangle(functionLabel.Location, functionLabel.Size);
+            recUpBorder = new Rectangle(upBorder.Location, upBorder.Size);
+            recLowBorder = new Rectangle(lowBorder.Location, lowBorder.Size);
+            recIntegral = new Rectangle(integral.Location, integral.Size);
+        }
+
+        private void AutoResize(Control control, Rectangle rectangle)
+        {
+            double xRatio = (double)(this.Width) / (double)(formOriginalSize.Width);
+            double yRatio = (double)(this.Height) / (double)(formOriginalSize.Height);
+            int newX = (int)(rectangle.X * xRatio);
+            int newY = (int)(rectangle.Y * yRatio);
+
+            int newWidth = (int)(rectangle.Width * xRatio);
+            int newHeight = (int)(rectangle.Height * yRatio);
+
+            control.Location = new Point(newX, newY);
+            control.Size = new Size(newWidth, newHeight);
+        }
+
+        private void IntegralForm_Resize(object sender, EventArgs e)
+        {
+            AutoResize(GraphDesignLabel, recGraphDesignLabel);
+            AutoResize(functionLabel, recfunctionLabel);
         }
 
         double IIntegralView.Interval()

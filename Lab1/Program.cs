@@ -119,6 +119,7 @@ namespace Lab1
     {
         private int fastIterations;
 
+
         public PlotModel CreateGraph(double interval, double downLimitation, double upLimitation, string function)
         {
             double limit = Convert.ToDouble(interval);
@@ -1157,6 +1158,10 @@ namespace Lab1
                 context.Variables["x"] = tempX;
                 var expression = context.CompileGeneric<double>(function);
                 double resolvedX = (double)expression.Evaluate();
+                if (resolvedX <= 0) 
+                {
+                    resolvedX = Math.Abs(resolvedX);
+                }
                 array.Add(new double[] { tempX, previousY });
                 array.Add(new double[] { tempX, 0 });
                 array.Add(new double[] { tempX, resolvedX });                
@@ -1185,11 +1190,19 @@ namespace Lab1
                 array.Add(new double[] { firstTempX, 0 });
                 var expression = context.CompileGeneric<double>(function);
                 double firstResolvedX = (double)expression.Evaluate();
+                if (firstResolvedX <= 0)
+                {
+                    firstResolvedX = Math.Abs(firstResolvedX);
+                }
                 array.Add(new double[] { firstTempX, firstResolvedX });
 
                 context.Variables["x"] = secondTempX;
                 expression = context.CompileGeneric<double>(function);
                 double secondResolvedX = (double)expression.Evaluate();
+                if (secondResolvedX <= 0)
+                {
+                    secondResolvedX = Math.Abs(secondResolvedX);
+                }
                 array.Add(new double[] { secondTempX, secondResolvedX });
                 array.Add(new double[] { secondTempX, 0 });
 
@@ -1216,7 +1229,15 @@ namespace Lab1
             {
                 context.Variables["x"] = firstTempX;
                 var expression = context.CompileGeneric<double>(function);
-                firstXResults.Add((double)expression.Evaluate());
+                if ((double)expression.Evaluate() < 0)
+                {
+                    firstXResults.Add(Math.Abs((double)expression.Evaluate()));
+                }
+                else 
+                {
+                    firstXResults.Add((double)expression.Evaluate());
+                }
+                
                 
                 firstTempX += smallIntegralWidth;
                 center.Add(new double[] { firstTempX, (double)expression.Evaluate() });

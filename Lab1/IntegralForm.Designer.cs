@@ -40,6 +40,7 @@
             menuStrip1 = new System.Windows.Forms.MenuStrip();
             toolStripTextBox1 = new System.Windows.Forms.ToolStripTextBox();
             toolStripTextBox2 = new System.Windows.Forms.ToolStripTextBox();
+            toolStripTextBox3 = new System.Windows.Forms.ToolStripTextBox();
             dx = new System.Windows.Forms.Label();
             lowBorder = new System.Windows.Forms.TextBox();
             upBorder = new System.Windows.Forms.TextBox();
@@ -54,11 +55,9 @@
             simpsonResult = new System.Windows.Forms.TextBox();
             trapezoidResult = new System.Windows.Forms.TextBox();
             rectangleResult = new System.Windows.Forms.TextBox();
-            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             integral = new System.Windows.Forms.Label();
             formatBox = new System.Windows.Forms.TextBox();
             label1 = new System.Windows.Forms.Label();
-            toolStripTextBox3 = new System.Windows.Forms.ToolStripTextBox();
             menuStrip1.SuspendLayout();
             integralGroup.SuspendLayout();
             resultBox.SuspendLayout();
@@ -145,7 +144,7 @@
             IntervalLimitation.Name = "IntervalLimitation";
             IntervalLimitation.Size = new System.Drawing.Size(80, 23);
             IntervalLimitation.TabIndex = 81;
-            IntervalLimitation.Text = "0";
+            IntervalLimitation.Text = "5";
             // 
             // function
             // 
@@ -154,7 +153,7 @@
             function.Name = "function";
             function.Size = new System.Drawing.Size(129, 23);
             function.TabIndex = 80;
-            function.Text = "-x^3+3*x^2+4";
+            function.Text = "x";
             // 
             // menuStrip1
             // 
@@ -184,6 +183,14 @@
             toolStripTextBox2.TextBoxTextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             toolStripTextBox2.Click += toolStripTextBox2_Click;
             // 
+            // toolStripTextBox3
+            // 
+            toolStripTextBox3.Name = "toolStripTextBox3";
+            toolStripTextBox3.ReadOnly = true;
+            toolStripTextBox3.Size = new System.Drawing.Size(100, 23);
+            toolStripTextBox3.Text = "Обратный ход";
+            toolStripTextBox3.Click += toolStripTextBox3_Click;
+            // 
             // dx
             // 
             dx.AutoSize = true;
@@ -199,6 +206,7 @@
             lowBorder.Name = "lowBorder";
             lowBorder.Size = new System.Drawing.Size(48, 23);
             lowBorder.TabIndex = 105;
+            lowBorder.Text = "0";
             // 
             // upBorder
             // 
@@ -206,6 +214,7 @@
             upBorder.Name = "upBorder";
             upBorder.Size = new System.Drawing.Size(48, 23);
             upBorder.TabIndex = 106;
+            upBorder.Text = "2";
             // 
             // integralGroup
             // 
@@ -326,7 +335,7 @@
             // 
             // formatBox
             // 
-            formatBox.Location = new System.Drawing.Point(228, 361);
+            formatBox.Location = new System.Drawing.Point(217, 348);
             formatBox.Name = "formatBox";
             formatBox.Size = new System.Drawing.Size(100, 23);
             formatBox.TabIndex = 110;
@@ -334,19 +343,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(221, 341);
+            label1.Location = new System.Drawing.Point(210, 328);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(114, 15);
             label1.TabIndex = 111;
             label1.Text = "Заданная точность:";
-            // 
-            // toolStripTextBox3
-            // 
-            toolStripTextBox3.Name = "toolStripTextBox3";
-            toolStripTextBox3.ReadOnly = true;
-            toolStripTextBox3.Size = new System.Drawing.Size(100, 23);
-            toolStripTextBox3.Text = "Обратный ход";
-            toolStripTextBox3.Click += toolStripTextBox3_Click;
             // 
             // IntegralForm
             // 
@@ -411,7 +412,6 @@
         private System.Windows.Forms.CheckBox simpson;
         private System.Windows.Forms.GroupBox resultBox;
         private System.Windows.Forms.TextBox rectangleResult;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.TextBox simpsonResult;
         private System.Windows.Forms.TextBox trapezoidResult;
         private System.Windows.Forms.Label integral;

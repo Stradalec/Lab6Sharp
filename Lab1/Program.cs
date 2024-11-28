@@ -101,7 +101,7 @@ namespace Lab1
 
         bool IsSimpsonActive();
 
-        void UpdateGraph(List<double[]> inputArr);
+        void UpdateGraph(List<double[]> inputArr, byte choice);
         void ShowGraph(PlotModel plotModel);
 
         void ShowResult(double[] inputArray);
@@ -1146,6 +1146,8 @@ namespace Lab1
         {
             double result = 0;
             double smallIntegralWidth = (upBorder  - lowBorder) / intervalCount;
+            double previousX = lowBorder;
+            double previousY = 0;
             List<double[]> array = new List<double[]>();
             var context = new ExpressionContext();
             context.Imports.AddType(typeof(Math));
@@ -1155,9 +1157,12 @@ namespace Lab1
                 context.Variables["x"] = tempX;
                 var expression = context.CompileGeneric<double>(function);
                 double resolvedX = (double)expression.Evaluate();
+                array.Add(new double[] { tempX, previousY });
                 array.Add(new double[] { tempX, 0 });
-                array.Add(new double[] { tempX, resolvedX });
-                array.Add(new double[] { tempX, 0 });
+                array.Add(new double[] { tempX, resolvedX });                
+                previousX = tempX;
+                previousY = resolvedX;
+                
 
                 result += resolvedX * smallIntegralWidth;
             }
@@ -1210,7 +1215,8 @@ namespace Lab1
                 firstXResults.Add((double)expression.Evaluate());
                 
                 firstTempX += smallIntegralWidth;
-                
+                array.Add(new double[] { firstTempX, (double)expression.Evaluate() });
+                array.Add(new double[] { double.NaN, double.NaN });
             }
 
             double temporarySumm = 0;
@@ -1219,7 +1225,7 @@ namespace Lab1
             while (index <= firstXResults.Count() - 2) 
             {
                 temporarySumm += firstXResults[index];
-                array.Add(new double[] { index, firstXResults[index] });
+                //array.Add(new double[] { index, firstXResults[index] });
                 index += 2;
             }
 
@@ -1231,13 +1237,16 @@ namespace Lab1
             while (secondIndex <= firstXResults.Count() - 2) 
             {
                 secondTempSumm += firstXResults[secondIndex];
-                array.Add(new double[] { secondIndex, firstXResults[index] });
+                //array.Add(new double[] { secondIndex, firstXResults[index] });
                 secondIndex += 2;
             }
+
+            
 
             double LastStageSumm = 2 * secondTempSumm;
 
             result = (smallIntegralWidth / 3) * ((firstXResults[0] + firstXResults[firstXResults.Count - 1]) + LastStageSumm + secondStageSumm);
+
             //for (int trapezoidIndex = 0; trapezoidIndex < intervalCount; ++trapezoidIndex)
             //{
             //    double firstTempX = lowBorder + trapezoidIndex * smallIntegralWidth;
@@ -1257,7 +1266,7 @@ namespace Lab1
             //    double thirdResolvedX = (double)expression.Evaluate();
 
             //    result += (firstResolvedX + 4 * secondResolvedX + thirdResolvedX) / 6 * smallIntegralWidth;
-            //}
+            //} Это то, что раньше было методом Симпсона, но как его понял я. Это работало, и даже считало точнее, но я решил снести, т.к. нашёл настоящий метод
 
             return (result, array);
         }
@@ -1308,9 +1317,9 @@ namespace Lab1
         {
             var output = model.CalculateIntegral(integralView.returnFunction(), integralView.lowLimit(), integralView.upLimit(), integralView.IntegralIntervalCount(), integralView.IsRectangleActive(), integralView.IsTrapezoidActive(), integralView.IsSimpsonActive());
             integralView.ShowResult(output.Item1);
-            integralView.UpdateGraph(output.Item2);
-            integralView.UpdateGraph(output.Item3);
-            integralView.UpdateGraph(output.Item4);
+            integralView.UpdateGraph(output.Item2, 0);
+            integralView.UpdateGraph(output.Item3, 1);
+            integralView.UpdateGraph(output.Item4, 2);
         }
 
         private void StartReverse(object sender, EventArgs inputEvent) 

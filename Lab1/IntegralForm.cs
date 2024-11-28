@@ -100,19 +100,49 @@ namespace Lab1
             }
         }
 
-        void IIntegralView.UpdateGraph(List<double[]> inputArr)
+        void IIntegralView.UpdateGraph(List<double[]> inputArr, byte choice)
         {
             var plotModel = this.pvGraph.Model;
-            var lineSeries = new LineSeries {
-                Title = "Дополнительное построение",
-                Color = OxyColor.FromRgb(0, 128, 0)
-            };
-            foreach (var line in inputArr)
+            if (choice == 0)
             {
-                lineSeries.Points.Add(new DataPoint(line[0], line[1]));
+                var lineSeries = new LineSeries {
+                    Title = "Метод прямоугольников",
+                    Color = OxyColor.FromRgb(0, 128, 0)
+                };
+                foreach (var line in inputArr)
+                {
+                    lineSeries.Points.Add(new DataPoint(line[0], line[1]));
+                }
+                plotModel.Series.Add(lineSeries);
+                this.pvGraph.Model = plotModel;
             }
-            plotModel.Series.Add(lineSeries);
-            this.pvGraph.Model = plotModel;
+            else if (choice == 1)
+            {
+                var lineSeries = new LineSeries {
+                    Title = "Метод трапеций",
+                    Color = OxyColor.FromRgb(0, 0, 0)
+                };
+                foreach (var line in inputArr)
+                {
+                    lineSeries.Points.Add(new DataPoint(line[0], line[1]));
+                }
+                plotModel.Series.Add(lineSeries);
+                this.pvGraph.Model = plotModel;
+            }
+            else if (choice == 2) 
+            {
+                var lineSeries = new LineSeries {
+                    Title = "Метод Симпсона",
+                    Color = OxyColor.FromRgb(153, 50, 204)
+                };
+                foreach (var line in inputArr)
+                {
+                    lineSeries.Points.Add(new DataPoint(line[0], line[1]));
+                }
+                plotModel.Series.Add(lineSeries);
+                this.pvGraph.Model = plotModel;
+            }
+            
         }
         bool IIntegralView.IsRectangleActive()
         {

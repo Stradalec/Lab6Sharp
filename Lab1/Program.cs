@@ -1082,19 +1082,19 @@ namespace Lab1
             return plotModel;
         }
 
-        public (double[], List<double[]>, List<double[]>, List<double[]>) CalculateIntegral(string function, double lowBorder, double upBorder, int iterationsCount, bool isRectangleActive, bool isTrapezoidActive, bool isSimpsonActive) 
+        public (double[], List<double[]>, List<double[]>, List<double[]>) CalculateIntegral(string function, double lowBorder, double upBorder, int iterationsCount, bool isRectangleActive, bool isTrapezoidActive, bool isSimpsonActive)
         {
             double[] resultArray = new double[3];
             List<double[]> rectangleList = new List<double[]>();
             List<double[]> trapezoidList = new List<double[]>();
             List<double[]> SimpsonList = new List<double[]>();
-            if (isRectangleActive) 
+            if (isRectangleActive)
             {
                 var output = rectangleMethod(function, lowBorder, upBorder, iterationsCount);
                 resultArray[0] = output.Item1;
                 rectangleList = output.Item2;
             }
-            if (isTrapezoidActive) 
+            if (isTrapezoidActive)
             {
                 var output = trapezoidMethod(function, lowBorder, upBorder, iterationsCount);
                 resultArray[1] = output.Item1;
@@ -1112,10 +1112,12 @@ namespace Lab1
             return (resultArray, rectangleList, trapezoidList, SimpsonList);
         }
 
-        public int ReverseIntegral(string function, double lowBorder, double upBorder, double accuracy) 
+        public int ReverseIntegral(string function, double lowBorder, double upBorder, double accuracy)
         {
             int result = 2;
-            double[] methodResults =  new double[3];
+            int bigStep = 100;
+            int returnStep = 1;
+            double[] methodResults = new double[3];
             bool IsWorking = true;
             while (IsWorking)
             {
@@ -1128,53 +1130,80 @@ namespace Lab1
                 methodResults[0] = Math.Truncate(methodResults[0] * Math.Pow(10, accuracy)) / Math.Pow(10, accuracy);
                 methodResults[1] = Math.Truncate(methodResults[1] * Math.Pow(10, accuracy)) / Math.Pow(10, accuracy);
                 methodResults[2] = Math.Truncate(methodResults[2] * Math.Pow(10, accuracy)) / Math.Pow(10, accuracy);
-                if (methodResults[0] == methodResults[1] && methodResults[0] == methodResults[2])
+                if (methodResults[0] == methodResults[1] && methodResults[0] == methodResults[2] && methodResults[1] == methodResults[2])
                 {
                     IsWorking = false;
                 }
-                else 
+                else
                 {
-                    ++result;
+
+                    result += bigStep;
+
                 }
-                
+
             }
-            
-            
+
+            IsWorking = true;
+            while (IsWorking)
+            {
+                var output = rectangleMethod(function, lowBorder, upBorder, result);
+                methodResults[0] = output.Item1;
+                output = trapezoidMethod(function, lowBorder, upBorder, result);
+                methodResults[1] = output.Item1;
+                output = SimpsonMethod(function, lowBorder, upBorder, result);
+                methodResults[2] = output.Item1;
+                methodResults[0] = Math.Truncate(methodResults[0] * Math.Pow(10, accuracy)) / Math.Pow(10, accuracy);
+                methodResults[1] = Math.Truncate(methodResults[1] * Math.Pow(10, accuracy)) / Math.Pow(10, accuracy);
+                methodResults[2] = Math.Truncate(methodResults[2] * Math.Pow(10, accuracy)) / Math.Pow(10, accuracy);
+                if (methodResults[0] != methodResults[1] || methodResults[0] != methodResults[2] || methodResults[1] != methodResults[2])
+                {
+                    IsWorking = false;
+                }
+                else
+                {
+
+                    result -= returnStep;
+
+                }
+
+            }
+            ++result;
+
             return result;
         }
 
-        private (double, List<double[]>) rectangleMethod(string function, double lowBorder, double upBorder, int intervalCount) 
+        private (double, List<double[]>) rectangleMethod(string function, double lowBorder, double upBorder, int intervalCount)
         {
             double result = 0;
-            double smallIntegralWidth = (upBorder  - lowBorder) / intervalCount;
+            double smallIntegralWidth = (upBorder - lowBorder) / intervalCount;
             double previousX = lowBorder;
             double previousY = 0;
             List<double[]> array = new List<double[]>();
             var context = new ExpressionContext();
             context.Imports.AddType(typeof(Math));
-            for (int rectangleIndex = 0; rectangleIndex < intervalCount; ++rectangleIndex) 
-            {                               
-                double tempX = lowBorder + rectangleIndex * smallIntegralWidth;               
+            for (int rectangleIndex = 0; rectangleIndex < intervalCount; ++rectangleIndex)
+            {
+                double tempX = lowBorder + rectangleIndex * smallIntegralWidth;
                 context.Variables["x"] = tempX;
                 var expression = context.CompileGeneric<double>(function);
                 double resolvedX = (double)expression.Evaluate();
-                if (resolvedX <= 0) 
+                if (resolvedX <= 0)
                 {
                     resolvedX = Math.Abs(resolvedX);
                 }
                 array.Add(new double[] { tempX, previousY });
                 array.Add(new double[] { tempX, 0 });
-                array.Add(new double[] { tempX, resolvedX });                
+                array.Add(new double[] { tempX, resolvedX });
                 previousX = tempX;
                 previousY = resolvedX;
-                
+
 
                 result += resolvedX * smallIntegralWidth;
             }
             return (result, array);
         }
 
-        private (double, List<double[]>) trapezoidMethod(string function, double lowBorder, double upBorder, int intervalCount) 
+        private (double, List<double[]>) trapezoidMethod(string function, double lowBorder, double upBorder, int intervalCount)
         {
             double result = 0;
             double smallIntegralWidth = (upBorder - lowBorder) / intervalCount;
@@ -1225,7 +1254,7 @@ namespace Lab1
             List<double> firstXResults = new List<double>();
 
             double firstTempX = lowBorder;
-            while (firstTempX <= upBorder) 
+            while (firstTempX <= upBorder)
             {
                 context.Variables["x"] = firstTempX;
                 var expression = context.CompileGeneric<double>(function);
@@ -1233,12 +1262,12 @@ namespace Lab1
                 {
                     firstXResults.Add(Math.Abs((double)expression.Evaluate()));
                 }
-                else 
+                else
                 {
                     firstXResults.Add((double)expression.Evaluate());
                 }
-                
-                
+
+
                 firstTempX += smallIntegralWidth;
                 center.Add(new double[] { firstTempX, (double)expression.Evaluate() });
             }
@@ -1246,7 +1275,7 @@ namespace Lab1
             double temporarySumm = 0;
             int index = 1;
 
-            while (index <= firstXResults.Count() - 2) 
+            while (index <= firstXResults.Count() - 2)
             {
                 temporarySumm += firstXResults[index];
                 left.Add(new double[] { index, firstXResults[index] });
@@ -1255,19 +1284,19 @@ namespace Lab1
 
             double secondStageSumm = 4 * temporarySumm;
 
-            double secondTempSumm  = 0;
+            double secondTempSumm = 0;
             int secondIndex = 2;
 
-            while (secondIndex <= firstXResults.Count() - 2) 
+            while (secondIndex <= firstXResults.Count() - 2)
             {
                 secondTempSumm += firstXResults[secondIndex];
                 right.Add(new double[] { secondIndex, firstXResults[secondIndex] });
                 secondIndex += 2;
             }
 
-            while (counter < right.Count) 
+            while (counter < right.Count)
             {
-                array.Add(left[counter]);               
+                array.Add(left[counter]);
                 array.Add(center[counter]);
                 array.Add(right[counter]);
 
@@ -1292,7 +1321,7 @@ namespace Lab1
             //    context.Variables["x"] = secondTempX;
             //    expression = context.CompileGeneric<double>(function);
             //    double secondResolvedX = (double)expression.Evaluate();
-                
+
             //    context.Variables["x"] = thirdTempX;
             //    expression = context.CompileGeneric<double>(function);
             //    double thirdResolvedX = (double)expression.Evaluate();
@@ -1345,7 +1374,7 @@ namespace Lab1
         }
 
 
-        private void CalculateIntegral(object sender, EventArgs inputEvent) 
+        private void CalculateIntegral(object sender, EventArgs inputEvent)
         {
             var output = model.CalculateIntegral(integralView.returnFunction(), integralView.lowLimit(), integralView.upLimit(), integralView.IntegralIntervalCount(), integralView.IsRectangleActive(), integralView.IsTrapezoidActive(), integralView.IsSimpsonActive());
             integralView.ShowResult(output.Item1);
@@ -1354,13 +1383,13 @@ namespace Lab1
             integralView.UpdateGraph(output.Item4, 2);
         }
 
-        private void StartReverse(object sender, EventArgs inputEvent) 
+        private void StartReverse(object sender, EventArgs inputEvent)
         {
             var output = model.ReverseIntegral(integralView.returnFunction(), integralView.lowLimit(), integralView.upLimit(), integralView.Accuracy());
             integralView.ReverseResult(output);
         }
 
-        private void IntegralGraph(object sender, EventArgs inputEvent) 
+        private void IntegralGraph(object sender, EventArgs inputEvent)
         {
             var output = model.CreateIntegralGraph(integralView.Interval(), integralView.lowLimit(), integralView.upLimit(), integralView.returnFunction());
             integralView.ShowGraph(output);

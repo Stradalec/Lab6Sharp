@@ -58,6 +58,9 @@
             integral = new System.Windows.Forms.Label();
             formatBox = new System.Windows.Forms.TextBox();
             label1 = new System.Windows.Forms.Label();
+            recViz = new System.Windows.Forms.CheckBox();
+            trapViz = new System.Windows.Forms.CheckBox();
+            simpsonViz = new System.Windows.Forms.CheckBox();
             menuStrip1.SuspendLayout();
             integralGroup.SuspendLayout();
             resultBox.SuspendLayout();
@@ -234,7 +237,7 @@
             // 
             simpsonT.AutoSize = true;
             simpsonT.Location = new System.Drawing.Point(6, 72);
-            simpsonT.Name = "simpson";
+            simpsonT.Name = "simpsonT";
             simpsonT.Size = new System.Drawing.Size(83, 19);
             simpsonT.TabIndex = 110;
             simpsonT.Text = "Симпсона";
@@ -349,11 +352,47 @@
             label1.TabIndex = 111;
             label1.Text = "Заданная точность:";
             // 
+            // recViz
+            // 
+            recViz.AllowDrop = true;
+            recViz.AutoSize = true;
+            recViz.Location = new System.Drawing.Point(217, 247);
+            recViz.Name = "recViz";
+            recViz.Size = new System.Drawing.Size(102, 19);
+            recViz.TabIndex = 112;
+            recViz.Text = "Визуализация";
+            recViz.UseVisualStyleBackColor = true;
+            // 
+            // trapViz
+            // 
+            trapViz.AllowDrop = true;
+            trapViz.AutoSize = true;
+            trapViz.Location = new System.Drawing.Point(217, 272);
+            trapViz.Name = "trapViz";
+            trapViz.Size = new System.Drawing.Size(102, 19);
+            trapViz.TabIndex = 113;
+            trapViz.Text = "Визуализация";
+            trapViz.UseVisualStyleBackColor = true;
+            // 
+            // simpsonViz
+            // 
+            simpsonViz.AllowDrop = true;
+            simpsonViz.AutoSize = true;
+            simpsonViz.Location = new System.Drawing.Point(217, 297);
+            simpsonViz.Name = "simpsonViz";
+            simpsonViz.Size = new System.Drawing.Size(102, 19);
+            simpsonViz.TabIndex = 114;
+            simpsonViz.Text = "Визуализация";
+            simpsonViz.UseVisualStyleBackColor = true;
+            // 
             // IntegralForm
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(924, 519);
+            Controls.Add(simpsonViz);
+            Controls.Add(trapViz);
+            Controls.Add(recViz);
             Controls.Add(label1);
             Controls.Add(formatBox);
             Controls.Add(integral);
@@ -419,5 +458,8 @@
         private System.Windows.Forms.Label rectangleResultLabel;
         private System.Windows.Forms.TextBox formatBox;
         private System.Windows.Forms.ToolStripTextBox toolStripTextBox3;
+        private System.Windows.Forms.CheckBox recViz;
+        private System.Windows.Forms.CheckBox trapViz;
+        private System.Windows.Forms.CheckBox simpsonViz;
     }
 }

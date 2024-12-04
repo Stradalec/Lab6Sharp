@@ -44,6 +44,9 @@ namespace Lab1
         private Rectangle recTrapezoidResult;
         private Rectangle recSimpsonResultLabel;
         private Rectangle recSimpsonResult;
+        private Rectangle recRecViz;
+        private Rectangle recTrapViz;
+        private Rectangle recSimpsonViz;
 
         public IntegralForm()
         {
@@ -77,6 +80,9 @@ namespace Lab1
             recTrapezoidResult = new Rectangle(trapezoidResult.Location, trapezoidResult.Size);
             recSimpsonResultLabel = new Rectangle(SimpsonResultLabel.Location, SimpsonResultLabel.Size);
             recSimpsonResult = new Rectangle(simpsonResult.Location, simpsonResult.Size);
+            recRecViz = new Rectangle(recViz.Location, recViz.Size);
+            recTrapViz = new Rectangle(trapViz.Location, trapViz.Size);
+            recSimpsonViz = new Rectangle(simpsonViz.Location, simpsonViz.Size);
         }
 
         private void AutoResize(Control control, Rectangle rectangle)
@@ -121,6 +127,9 @@ namespace Lab1
             AutoResize(trapezoidResult, recTrapezoidResult);
             AutoResize(SimpsonResultLabel, recSimpsonResultLabel);
             AutoResize(simpsonResult, recSimpsonResult);
+            AutoResize(recViz, recRecViz);
+            AutoResize(trapViz, recTrapViz);
+            AutoResize(simpsonViz, recSimpsonViz);
         }
 
         double IIntegralView.Interval()
@@ -202,7 +211,7 @@ namespace Lab1
         void IIntegralView.UpdateGraph(List<double[]> inputArr, byte choice)
         {
             var plotModel = this.pvGraph.Model;
-            if (choice == 0)
+            if (choice == 0 && recViz.Checked)
             {
                 var lineSeries = new LineSeries {
                     Title = "Метод прямоугольников",
@@ -215,7 +224,7 @@ namespace Lab1
                 plotModel.Series.Add(lineSeries);
                 this.pvGraph.Model = plotModel;
             }
-            else if (choice == 1)
+            else if (choice == 1 && trapViz.Checked)
             {
                 var lineSeries = new LineSeries {
                     Title = "Метод трапеций",
@@ -228,7 +237,7 @@ namespace Lab1
                 plotModel.Series.Add(lineSeries);
                 this.pvGraph.Model = plotModel;
             }
-            else if (choice == 2) 
+            else if (choice == 2 && simpsonViz.Checked) 
             {
                 var lineSeries = new LineSeries {
                     Title = "Метод Симпсона",

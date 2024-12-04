@@ -1187,17 +1187,16 @@ namespace Lab1
                 context.Variables["x"] = tempX;
                 var expression = context.CompileGeneric<double>(function);
                 double resolvedX = (double)expression.Evaluate();
-                if (resolvedX <= 0)
-                {
-                    resolvedX = Math.Abs(resolvedX);
-                }
                 array.Add(new double[] { tempX, previousY });
                 array.Add(new double[] { tempX, 0 });
                 array.Add(new double[] { tempX, resolvedX });
                 previousX = tempX;
                 previousY = resolvedX;
 
-
+                if (resolvedX <= 0)
+                {
+                    resolvedX = Math.Abs(resolvedX);
+                }
                 result += resolvedX * smallIntegralWidth;
             }
             return (result, array);
@@ -1219,22 +1218,20 @@ namespace Lab1
                 array.Add(new double[] { firstTempX, 0 });
                 var expression = context.CompileGeneric<double>(function);
                 double firstResolvedX = (double)expression.Evaluate();
+                array.Add(new double[] { firstTempX, firstResolvedX });
                 if (firstResolvedX <= 0)
                 {
                     firstResolvedX = Math.Abs(firstResolvedX);
                 }
-                array.Add(new double[] { firstTempX, firstResolvedX });
-
                 context.Variables["x"] = secondTempX;
                 expression = context.CompileGeneric<double>(function);
                 double secondResolvedX = (double)expression.Evaluate();
+                array.Add(new double[] { secondTempX, secondResolvedX });
+                array.Add(new double[] { secondTempX, 0 });
                 if (secondResolvedX <= 0)
                 {
                     secondResolvedX = Math.Abs(secondResolvedX);
                 }
-                array.Add(new double[] { secondTempX, secondResolvedX });
-                array.Add(new double[] { secondTempX, 0 });
-
                 result += (firstResolvedX + secondResolvedX) / 2 * smallIntegralWidth;
             }
             return (result, array);

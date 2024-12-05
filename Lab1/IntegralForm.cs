@@ -309,15 +309,7 @@ namespace Lab1
 
         string IIntegralView.returnFunction()
         {
-            if (function.Text.Contains("x"))
-            {
                 return function.Text;
-            }
-            else
-            {
-                MessageBox.Show("Нет функции", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return "x";
-            }
         }
 
         void IIntegralView.ShowGraph(PlotModel plotModel)
